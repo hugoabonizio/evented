@@ -9,6 +9,10 @@ class Evented
     @@_callbacks
   end
   
+  def streams
+    @@_streams
+  end
+  
   def on(event, &block)
     @@_callbacks[event] << block
   end
@@ -24,6 +28,10 @@ class Evented
     while @running
       tick
     end
+  end
+  
+  def stop
+    @running = false
   end
   
   def tick
