@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Events emmiter and listen" do
+describe Evented do
   it "should add event" do
     events = Evented.new
     events.callbacks.size.should eq(0)

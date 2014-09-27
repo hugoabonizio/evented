@@ -1,4 +1,5 @@
 class Stream < Evented
+  attr_accessor :_callbacks, :buffer
   
   def initialize(io)
     @io = io
@@ -40,7 +41,7 @@ class Stream < Evented
   
   def close
     @io.close
-    streams.delete(@io)
+    streams.delete(self)
   end
   
   def gets
