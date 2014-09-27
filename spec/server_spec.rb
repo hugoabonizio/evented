@@ -10,7 +10,7 @@ describe Server do
   it "should accept new connections" do
     server = Server.new('0.0.0.0', 3002)
     control = 10
-    server.on(:connect) do |_|
+    server.on(:accept) do |_|
       control = 123
     end
     Thread.new { server.start }

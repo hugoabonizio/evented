@@ -6,9 +6,6 @@ class Server < Evented
     super()
     @io = TCPServer.new(host, port)
     streams << self
-    on(:accept) do |stream|
-      emit(:connect, stream)
-    end
   end
   
   def to_io
