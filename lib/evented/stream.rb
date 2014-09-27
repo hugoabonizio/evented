@@ -6,9 +6,10 @@ class Stream < Evented
     @buffer = ''
     streams << self
     @_callbacks ||= Hash.new { |hash, key| hash[key] = Array.new }
-    #on(:close) do
-    #  close
-    #end
+    on(:close) do
+      puts 'closou'
+      close
+    end
   end
   
   def to_io
@@ -30,7 +31,7 @@ class Stream < Evented
     emit(:data, chunk)
   rescue IO::WaitReadable
   rescue EOFError, Errno::ECONNRESET
-      emit(:close)
+    emit(:close)
   end
   
   def handle_write
@@ -40,7 +41,7 @@ class Stream < Evented
     emit(:sent)
   rescue IO::WaitWritable
   rescue EOFError, Errno::ECONNRESET
-      emit(:close)
+    emit(:close)
   end
   
   def send(chunk, &block)

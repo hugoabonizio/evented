@@ -40,6 +40,23 @@ describe Stream do
     stream2.emit(:test)
     expect(control).to eql(5)
   end
+
+  it "should close stream if the socket has closed" do
+    port = 7000 + rand(1000)
+    server = Server.new('localhost', port)
+    control = nil
+    server.on(:accept) do |stream|
+      control = stream
+      sleep(1)
+      stream.send('teste')
+    end
+    server.start_threaded
+    sock = TCPSocket.new('localhost', port)
+    sleep(0.1)
+    expect(server.streams).to include(control)
+    sock.close
+    # have to finish, it's still not deleting closed connections
+  end
   
   # TODO
   # verify the read and write data

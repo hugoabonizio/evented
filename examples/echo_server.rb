@@ -1,7 +1,11 @@
 require File.dirname(__FILE__) + "/../lib/evented.rb"
 
-server = Server.new('0.0.0.0', 8080)
+server = Server.new('0.0.0.0', 8081) # echo server
 server.on(:accept) do |stream|
-  puts 'aceito'
+  stream.on(:data) do |data|
+    stream.send(data) do
+      stream.close
+    end
+  end
 end
 server.start
