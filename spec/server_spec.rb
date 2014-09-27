@@ -13,7 +13,7 @@ describe Server do
     server.on(:accept) do |_|
       control = 123
     end
-    Thread.new { server.start }
+    server.start_threaded
     sleep(0.1)
     socket = TCPSocket.new('localhost', 3002)
     sleep(0.1)

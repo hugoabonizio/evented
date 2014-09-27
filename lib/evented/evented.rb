@@ -30,6 +30,10 @@ class Evented
     end
   end
   
+  def start_threaded
+    Thread.new { start }
+  end
+  
   def stop
     @running = false
   end
