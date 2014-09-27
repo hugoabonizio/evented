@@ -6,8 +6,8 @@ class Server < Evented
     super()
     @io = TCPServer.new(host, port)
     streams << self
-    on(:accept) do |sock|
-      emit(:connect, sock)
+    on(:accept) do |stream|
+      emit(:connect, stream)
     end
   end
   
@@ -17,7 +17,7 @@ class Server < Evented
   
   def handle_read
     sock = @io.accept_nonblock
-    emit(:accept, sock)
+    emit(:accept, Stream.new(sock))
     rescue IO::WaitReadable
   end
   
