@@ -7,7 +7,6 @@ class Stream < Evented
     streams << self
     @_callbacks ||= Hash.new { |hash, key| hash[key] = Array.new }
     on(:close) do
-      puts 'closou'
       close
     end
   end
@@ -30,7 +29,7 @@ class Stream < Evented
     chunk = @io.read_nonblock(1024)
     emit(:data, chunk)
   rescue IO::WaitReadable
-  rescue EOFError, Errno::ECONNRESET
+  rescue EOFError, IOError, Errno::ECONNRESET
     emit(:close)
   end
   
@@ -40,7 +39,7 @@ class Stream < Evented
     @buffer = ''
     emit(:sent)
   rescue IO::WaitWritable
-  rescue EOFError, Errno::ECONNRESET
+  rescue EOFError, IOError, Errno::ECONNRESET
     emit(:close)
   end
   
@@ -51,6 +50,7 @@ class Stream < Evented
   
   def close
     @io.close
+  rescue IOError
     streams.delete(self)
   end
   
