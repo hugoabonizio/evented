@@ -45,7 +45,7 @@ class Stream < Evented
   
   def send(chunk, &block)
     @buffer << chunk
-    on(:sent, &block)
+    on(:sent, &block) if block_given?
   end
   
   def close
