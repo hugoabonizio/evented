@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../lib/evented.rb"
+require 'evented'
 
 port = 11000 + rand(1000)
 puts "Listening on #{port}..."

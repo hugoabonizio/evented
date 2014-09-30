@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../lib/evented.rb"
+require 'evented'
 
 # It's a very simple example of a telnet chat that
 # broadcasts a message to all clients connected, using
