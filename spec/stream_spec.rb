@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe Stream do
+describe Evented::Stream do
   it "should initiate properly" do
-    stream = Stream.new(Object.new)
+    stream = Evented::Stream.new(Object.new)
     expect(stream._callbacks).to be_a Hash
     expect(stream.buffer).to eql('')
   end
   
   it "should increment buffer" do
-    stream = Stream.new(Object.new)
+    stream = Evented::Stream.new(Object.new)
     stream.send("test data")
     expect(stream.buffer.size).to eql("test data".size)
   end
   
   it "should close and self delete" do
-    stream = Stream.new(File.new(__FILE__))
+    stream = Evented::Stream.new(File.new(__FILE__))
     expect(stream.streams).to include(stream)
     stream.close
     pending "it's not working yet"
@@ -22,7 +22,7 @@ describe Stream do
   end
   
   it "should emit events" do
-    stream = Stream.new(File.new(__FILE__))
+    stream = Evented::Stream.new(File.new(__FILE__))
     control = 5
     stream.on(:test) do
       control = 55
@@ -32,8 +32,8 @@ describe Stream do
   end
   
   it "should emit events only internally" do
-    stream = Stream.new(File.new(__FILE__))
-    stream2 = Stream.new(File.new(__FILE__))
+    stream = Evented::Stream.new(File.new(__FILE__))
+    stream2 = Evented::Stream.new(File.new(__FILE__))
     control = 5
     stream.on(:test) do
       control = 55
@@ -44,7 +44,7 @@ describe Stream do
 
   it "should close stream if the socket has closed" do
     port = 7000 + rand(1000)
-    server = Server.new('localhost', port)
+    server = Evented::Server.new('localhost', port)
     control = nil
     server.on(:accept) do |stream|
       control = stream

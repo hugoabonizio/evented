@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe Server do
+describe Evented::Server do
   it "should call Evented constructor" do
-    server = Server.new('0.0.0.0', 3001)
+    server = Evented::Server.new('0.0.0.0', 3001)
     expect(server.callbacks).to be_a Hash
     #server.callbacks.should_not be_nil
   end
   
   it "should accept new connections" do
-    server = Server.new('0.0.0.0', 3002)
+    server = Evented::Server.new('0.0.0.0', 3002)
     control = 10
     server.on(:accept) do |_|
       control = 123

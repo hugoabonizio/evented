@@ -8,7 +8,7 @@ describe "Integration between parts" do
   it "server should receive chunks" do
     @control = ''
     port = 15000 + rand(1000)
-    @server = Server.new('localhost', port)
+    @server = Evented::Server.new('localhost', port)
     @server.on(:accept) do |stream|
       stream.on(:data) do |data|
         @control = data
@@ -25,7 +25,7 @@ describe "Integration between parts" do
   it "server should send chunks" do
     @control = ''
     port = 15000 + rand(1000)
-    @server = Server.new('localhost', port)
+    @server = Evented::Server.new('localhost', port)
     @server.on(:accept) do |stream|
       stream.send('sending')
     end

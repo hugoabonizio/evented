@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Evented do
+describe Evented::Evented do
   it "should add event" do
-    events = Evented.new
+    events = Evented::Evented.new
     events.callbacks.size.should eq(0)
     events.on(:teste) do
       'foo'
@@ -11,7 +11,7 @@ describe Evented do
   end
   
   it "should call callback" do
-    events = Evented.new
+    events = Evented::Evented.new
     control = 10
     events.on(:callback_event) do
       control += 10
