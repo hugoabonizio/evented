@@ -5,7 +5,7 @@ __Evented__ is a simple event-driven IO gem written in pure Ruby. Here's a examp
 
 ```ruby
 require 'evented'
-server = Server.new('0.0.0.0', 8080)
+server = Evented::Server.new('0.0.0.0', 8080)
 server.on(:accept) do |stream| # callback when accept a new connection
   response = "Lorem ipsum"
   stream.send(response) do # callback after send
@@ -19,7 +19,7 @@ It's designed for take advantages of the event-driven flow, when it's necessary.
 
 ```ruby
 require 'evented'
-server = Server.new('0.0.0.0', 8081) # echo server
+server = Evented::Server.new('0.0.0.0', 8081) # echo server
 server.on(:accept) do |stream|
   stream.on(:data) do |data|
     stream.send(data) do
