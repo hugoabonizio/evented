@@ -1,10 +1,11 @@
-require 'evented'
+#require 'evented'
+require File.dirname(__FILE__) + "/../lib/evented.rb"
 
-server = Server.new('0.0.0.0', 8080)
+server = Evented::Server.new('0.0.0.0', 8080)
 server.on(:accept) do |stream|
   begin
     #puts "connected #{stream}"
-    
+    sleep 0.1
     data = "HTTP/1.1 200 OK\r\n" +
            "Content-Type: text/html\r\n" +
            "Content-Length: #{"<h1>lol</h1>".bytesize}\r\n" +

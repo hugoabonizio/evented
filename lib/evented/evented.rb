@@ -49,10 +49,17 @@ module Evented
         stream.handle_write
       end
       
-      #@@_streams.each do |stream|
-      #  stream.handle_read
-      #  stream.handle_write
-      #end
+      # old way (mainted for learning reasons)
+      # and to show how noob I am
+      #
+      # @@_streams.each do |stream|
+      #    stream.handle_read
+      #    stream.handle_write
+      #  end
+      
+    rescue EOFError, IOError, Errno::ECONNRESET
+      @@_streams.each { |s| @@_streams.delete(s) if s.to_io.closed? }
+      emit(:close)
     end
 
   end

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'evented'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2014-09-28'
   s.summary     = "Gorki"
   s.description = "Event-driven and async IO Ruby gem"

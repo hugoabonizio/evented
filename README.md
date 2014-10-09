@@ -30,6 +30,7 @@ end
 server.start
 ```
 
+---
 ### TODO
 - [x] Base the event-loop on select()
 - [ ] Connection class
