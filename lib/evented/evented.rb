@@ -40,10 +40,19 @@ module Evented
     end
 
     def tick
-      @@_streams.each do |stream|
+      r, w = IO.select(@@_streams, @@_streams)
+      r.each do |stream|
         stream.handle_read
+      end
+      
+      w.each do |stream|
         stream.handle_write
       end
+      
+      #@@_streams.each do |stream|
+      #  stream.handle_read
+      #  stream.handle_write
+      #end
     end
 
   end

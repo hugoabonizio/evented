@@ -31,7 +31,7 @@ server.start
 ```
 
 ### TODO
-- [ ] Base the event-loop on select()
+- [x] Base the event-loop on select()
 - [ ] Connection class
 - [ ] HTTP server
 - [ ] Thread pool, to execute callbacks
