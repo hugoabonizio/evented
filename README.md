@@ -29,3 +29,8 @@ server.on(:accept) do |stream|
 end
 server.start
 ```
+
+### TODO
+- [ ] Connection class
+- [ ] HTTP server
+- [ ] Thread pool, to execute callbacks
