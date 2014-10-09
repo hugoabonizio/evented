@@ -58,8 +58,12 @@ module Evented
       #  end
       
     rescue EOFError, IOError, Errno::ECONNRESET
-      @@_streams.each { |s| @@_streams.delete(s) if s.to_io.closed? }
-      emit(:close)
+      @@_streams.each do |s|
+        if s.to_io.closed?
+          s.emit(:close)
+          @@_streams.delete(s)
+        end
+      end
     end
 
   end
