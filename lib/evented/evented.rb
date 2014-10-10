@@ -1,9 +1,12 @@
+require 'threading'
+
 module Evented
   class Evented
 
     def initialize
       @@_callbacks ||= Hash.new { |hash, key| hash[key] = Array.new }
       @@_streams = []
+      @@_pool = Pool.new(threads: 16)
     end
 
     def callbacks
@@ -20,7 +23,8 @@ module Evented
 
     def emit(event, *args)
       @@_callbacks[event].each do |callback|
-        callback.call(*args)
+        @@_pool << Proc.new { callback.call(*args) }
+        #callback.call(*args)
       end
     end
 

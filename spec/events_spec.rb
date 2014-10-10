@@ -17,6 +17,7 @@ describe Evented::Evented do
       control += 10
     end
     events.emit(:callback_event)
+    sleep 0.1
     control.should eq(20)
   end
 end

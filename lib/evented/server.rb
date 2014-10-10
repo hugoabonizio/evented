@@ -11,7 +11,7 @@ module Evented
     def to_io
       @io
     end
-
+    
     def handle_read
       sock = @io.accept_nonblock
       emit(:accept, Stream.new(sock))

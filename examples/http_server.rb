@@ -11,8 +11,8 @@ server.on(:accept) do |stream|
            "Content-Length: #{"<h1>lol</h1>".bytesize}\r\n" +
            "Connection: close\r\n\r\n" +
            "<h1>lol</h1>"
-    
-    stream.gets
+
+    stream.on(:data) { |data| puts data }
     stream.send(data) do
       stream.close
     end

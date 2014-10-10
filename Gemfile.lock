@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    evented (0.0.4)
+      threading (>= 0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    threading (0.0.11)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  evented!

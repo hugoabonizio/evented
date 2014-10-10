@@ -1,10 +1,11 @@
 module Evented
   class Stream < Evented
-    attr_accessor :_callbacks, :buffer
+    attr_accessor :_callbacks, :buffer, :lock
 
     def initialize(io)
       @io = io
       @buffer = ''
+      @lock = false
       streams << self
       @_callbacks ||= Hash.new { |hash, key| hash[key] = Array.new }
       on(:close) do
@@ -14,6 +15,18 @@ module Evented
 
     def to_io
       @io
+    end
+    
+    def lock!
+      @lock = true
+    end
+    
+    def unlock!
+      @lock = false
+    end
+    
+    def locked?
+      @lock
     end
 
     def on(event, &block)
